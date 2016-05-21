@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yzy.mrbs">
+    <application
+        android:name=".base.BaseApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.Login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".activity.UiMain"> </activity>
+
+        <activity android:name=".activity.UiConfig"> </activity>
+
+        <activity android:name=".activity.UiSetFace"> </activity>
+
+        <activity android:name=".activity.Room_Book"> </activity>
+
+        <activity android:name=".activity.Book"> </activity>
+
+        <activity android:name=".activity.BookSearch"> </activity>
+
+        <activity android:name=".activity.NoteSearch"> </activity>
+
+        <activity android:name=".activity.HttpClientTest"> </activity>
+
+
+
+        <!-- Service defines -->
+        <service android:name=".service.NoticeService" android:label="Notification Service"/>
+
+    </application>
+    <!-- For using network -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+</manifest>

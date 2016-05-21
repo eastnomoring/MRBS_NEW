@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/myScrollView"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="vertical">
+
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="选择预订会议室的具体时间" />
+		<!-- 定义一个DatePicker组件 -->
+		<DatePicker
+			android:id="@+id/datePicker"
+			android:layout_width="wrap_content"
+			android:layout_height="200dp"
+			android:layout_gravity="center_horizontal"
+			android:calendarViewShown="true"
+			android:endYear="2026"
+			android:spinnersShown="true"
+			android:startYear="2016" />
+
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="起始时间" />
+		<!-- 定义一个TimePicker组件 -->
+		<TimePicker
+			android:id="@+id/timePicker_start"
+			android:layout_width="wrap_content"
+			android:layout_height="90dp"
+			android:layout_gravity="center_horizontal" />
+
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="结束时间" />
+		<!-- 定义一个TimePicker组件 -->
+		<TimePicker
+			android:id="@+id/timePicker_end"
+			android:layout_width="wrap_content"
+			android:layout_height="90dp"
+			android:layout_gravity="center_horizontal" />
+		<!-- 显示用户输入日期、时间的控件 -->
+		<EditText
+			android:id="@+id/show"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:cursorVisible="false"
+			android:inputType="none" />
+		<Button
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:text="@string/btn_confirm"
+			android:id="@+id/room_book_ok"/>
+	</LinearLayout>
+</ScrollView>

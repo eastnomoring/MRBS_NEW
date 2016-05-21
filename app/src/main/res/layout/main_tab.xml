@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="horizontal"
+	android:layout_width="fill_parent"
+	android:layout_height="90dip">
+	<ImageButton
+		android:id="@+id/main_tab_1" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content" 
+		android:layout_weight="1" 
+		android:src="@drawable/tab_book1"
+		android:focusable="true"
+		android:padding="5dp"
+		android:background="@drawable/xml_tab_btn" />
+	<ImageButton 
+		android:id="@+id/main_tab_2" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content" 
+		android:layout_weight="1" 
+		android:src="@drawable/tab_book_search2"
+		android:focusable="true"
+		android:padding="5dp"
+		android:background="@drawable/xml_tab_btn" />
+	<ImageButton 
+		android:id="@+id/main_tab_3" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content" 
+		android:layout_weight="1" 
+		android:src="@drawable/tab_note_search3"
+		android:focusable="true"
+		android:padding="5dp"
+		android:background="@drawable/xml_tab_btn" />
+	<ImageButton 
+		android:id="@+id/main_tab_4" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content" 
+		android:layout_weight="1" 
+		android:src="@drawable/tab_person_info4"
+		android:focusable="true"
+		android:padding="5dp"
+		android:background="@drawable/xml_tab_btn" />
+</LinearLayout>
