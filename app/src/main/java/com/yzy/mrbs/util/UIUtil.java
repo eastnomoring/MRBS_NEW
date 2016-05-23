@@ -27,7 +27,7 @@ public class UIUtil {
         sb.append(resources.getString(R.string.tpl_list_info_text_bottom));
         sb.append(" ");
         sb.append(customer.getBlogcount());
-        sb.append(" | ");
+        sb.append("  |  ");
         sb.append(resources.getString(R.string.title_alert));
         sb.append(" ");
         sb.append(customer.getFanscount());
