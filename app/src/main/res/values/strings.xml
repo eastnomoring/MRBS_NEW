@@ -10,6 +10,7 @@
     <string name="login_label_username">账号</string>
     <string name="meeting_room_list">会议室列表</string>
     <string name="login_remember">记住密码</string>
+    <string name="edit_submit">保存</string>
     <string name="customer_fans">粉丝</string>
     <string name="customer_blog">微博</string>
     <!-- 提示文字 -->
@@ -28,5 +29,10 @@
     <string name="login">登录系统</string>
     <string name="name">用户名</string>
     <string name="pass">密   码</string>
+    <!-- Dialog -->
+    <string name="title_alert">消息</string>
+    <!-- tpl_list_info -->
+    <string name="tpl_list_info_text_top">这里是签名   将从服务器上获取</string>
+    <string name="tpl_list_info_text_bottom">这里是用户信息   将从服务器上获取</string>
 
 </resources>

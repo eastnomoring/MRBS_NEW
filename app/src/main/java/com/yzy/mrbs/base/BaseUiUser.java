@@ -33,13 +33,14 @@ public class BaseUiUser extends BaseUi {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//
+
 //        if (!BaseUser.isLogin()) {
 //            this.forward(Login.class);
 //            this.onStop();
 //        } else {
 //            customer = BaseUser.getCustomer();
 //        }
+        customer = BaseUser.getCustomer();
     }
 
     @Override

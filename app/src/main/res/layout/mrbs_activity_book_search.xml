@@ -2,11 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="BookSearch"
-        android:id="@+id/textView"
-        android:layout_weight="1.03" />
+    <ListView
+        android:id="@+id/app_book_search_list_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
+        android:fadingEdge="vertical"
+        android:fadingEdgeLength="5dip"
+        android:divider="@null"
+        android:listSelector="@drawable/xml_list_bg"
+        android:cacheColorHint="#00000000" />
+
 
 </LinearLayout>

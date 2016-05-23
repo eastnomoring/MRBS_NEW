@@ -14,12 +14,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.UiEditText"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+            <intent-filter>
+                <action android:name="com.yzy.mrbs.EDITTEXT" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".activity.UiMain"> </activity>
-
-        <activity android:name=".activity.UiConfig"> </activity>
-
-        <activity android:name=".activity.UiSetFace"> </activity>
 
         <activity android:name=".activity.Room_Book"> </activity>
 
@@ -30,6 +37,10 @@
         <activity android:name=".activity.NoteSearch"> </activity>
 
         <activity android:name=".activity.HttpClientTest"> </activity>
+
+        <activity android:name=".activity.UiConfig"> </activity>
+
+        <activity android:name=".activity.UiSetFace"> </activity>
 
 
 

@@ -14,9 +14,9 @@ public class C {
     }
 
     public static final class api {
-        public static final String base				= "http://192.168.1.106:8001";
+        public static final String base				= "http://192.168.1.106:8080/Meeting";
         public static final String index			= "/index/index";
-        public static final String login			= "/index/login";
+        public static final String login			= "/index/login.jsp";
         public static final String logout			= "/index/logout";
         public static final String faceView 		= "/image/faceView";
         public static final String faceList 		= "/image/faceList";
@@ -62,7 +62,6 @@ public class C {
     public static final class intent {
         public static final class action {
             public static final String EDITTEXT		= "com.yzy.mrbs.EDITTEXT";
-            public static final String EDITBLOG		= "com.yzy.mrbs.EDITBLOG";
         }
     }
 

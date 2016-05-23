@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by ZhiYuan on 2016/5/19.
+ * Created by ZhiYuan on 2016/5/22.
  */
 public class SimpleList extends SimpleAdapter {
 
@@ -22,5 +22,6 @@ public class SimpleList extends SimpleAdapter {
     @Override
     public void setViewText(TextView v, String text) {
         AppFilter.setHtml(v, text);
+
     }
 }

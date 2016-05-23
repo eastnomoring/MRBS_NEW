@@ -15,6 +15,12 @@ public class UIUtil {
     // tag for log
 //	private static String TAG = UIUtil.class.getSimpleName();
 
+    /**
+     * 获取用户信息方法
+     * @param ctx
+     * @param customer
+     * @return
+     */
     public static String getCustomerInfo (Context ctx, Customer customer) {
         Resources resources = ctx.getResources();
         StringBuffer sb = new StringBuffer();

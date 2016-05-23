@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -12,13 +13,13 @@ import android.widget.TimePicker;
 
 
 import com.yzy.mrbs.R;
-import com.yzy.mrbs.base.BaseUi;
+import com.yzy.mrbs.base.BaseUiUser;
 
 /**
  * 会议室信息界面
  * Created by ZhiYuan on 2016/5/13.
  */
-public class Room_Book extends BaseUi {
+public class Room_Book extends BaseUiUser {
 
     // 定义5个记录当前时间的变量
     private int year;
@@ -92,9 +93,13 @@ public class Room_Book extends BaseUi {
     private class ConfirmOnClickListener implements View.OnClickListener {
         public void onClick(View v) {
             //点击确认
+            String srting_room_book = "您的预订已提交，稍后由会议室管理员确认";
             Bundle mBundle = new Bundle();
-            mBundle.putString("text", "data from Room_Book");//压入数据
+//            mBundle.putString("text", "data from Room_Book");//压入数据
+            mBundle.putString("title", "消息2");
+            mBundle.putString("text", srting_room_book);
             openDialog(mBundle);
+
 
         }
     }
@@ -106,5 +111,14 @@ public class Room_Book extends BaseUi {
         show.setText("您的预定时间为：" + year + "年"
                 + (month + 1) + "月" + day + "日  "
                 + hour_s + "时" + minute_s + "分" + "  " + "到" + "  " + hour_e + "时" + minute_e + "分");
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // 其他方法
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            doFinish();
+            forward(UiMain.class);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

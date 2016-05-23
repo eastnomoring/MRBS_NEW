@@ -2,6 +2,7 @@ package com.yzy.mrbs.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -223,6 +224,7 @@ public class BaseUi extends Activity {
         new BaseDialog(this, params).show();
     }
 
+
     /**
      * 快速加载远程图片
      * @param url
@@ -270,26 +272,6 @@ public class BaseUi extends Activity {
     public void doEditText (Bundle data) {
         Intent intent = new Intent();
         intent.setAction(C.intent.action.EDITTEXT);
-        intent.putExtras(data);
-        this.startActivity(intent);
-    }
-
-    /**
-     * 编辑微博（用不到）
-     */
-    public void doEditBlog () {
-        Intent intent = new Intent();
-        intent.setAction(C.intent.action.EDITBLOG);
-        this.startActivity(intent);
-    }
-
-    /**
-     * 编辑微博 (用不到)
-     * @param data
-     */
-    public void doEditBlog (Bundle data) {
-        Intent intent = new Intent();
-        intent.setAction(C.intent.action.EDITBLOG);
         intent.putExtras(data);
         this.startActivity(intent);
     }
