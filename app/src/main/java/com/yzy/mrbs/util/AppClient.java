@@ -65,12 +65,13 @@ public class AppClient {
      * @param url
      */
     private void initClient (String url) {
-        // 初始化 API URL 地址 ，自动添加 Session ID
+        // 初始化 API URL 地址
         this.apiUrl = C.api.base + url;
-        String apiSid = AppUtil.getSessionId();
-        if (apiSid != null && apiSid.length() > 0) {
-            this.apiUrl += "?sid=" + apiSid;
-        }
+        //自动添加 Session ID
+//        String apiSid = AppUtil.getSessionId();
+//        if (apiSid != null && apiSid.length() > 0) {
+//            this.apiUrl += "?sid=" + apiSid;
+//        }
         // 设置网络超时
         httpParams = new BasicHttpParams();
         HttpConnectionParams.setConnectionTimeout(httpParams, timeoutConnection);
@@ -96,7 +97,8 @@ public class AppClient {
     public String get () throws Exception {
         try {
             //初始化GET请求对象
-            HttpGet httpGet = headerFilter(new HttpGet(this.apiUrl));
+//            HttpGet httpGet = headerFilter(new HttpGet(this.apiUrl));
+            HttpGet httpGet = new HttpGet(this.apiUrl);
             //记录GET请求发送日志
             Log.w("AppClient.get.url", this.apiUrl);
             // 发送GET请求
@@ -126,6 +128,7 @@ public class AppClient {
         try {
             //初始化POST请求对象
             HttpPost httpPost = headerFilter(new HttpPost(this.apiUrl));
+//            HttpPost httpPost = new HttpPost(this.apiUrl);
             List<NameValuePair> postParams = new ArrayList<NameValuePair>();
             // 构造POST请求参数
             Iterator it = urlParams.entrySet().iterator();
@@ -149,6 +152,7 @@ public class AppClient {
                 String httpResult = resultFilter(httpResponse.getEntity());
                 //记录POST请求结果日志
                 Log.w("AppClient.post.result", httpResult);
+                //返回POST请求结果
                 return httpResult;
             } else {
                 return null;

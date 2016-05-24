@@ -14,21 +14,15 @@ public class C {
     }
 
     public static final class api {
-        public static final String base				= "http://192.168.1.106:8080/Meeting";
+        public static final String base				= "http://192.168.1.106:80/PhalApi/Public";
         public static final String index			= "/index/index";
-        public static final String login			= "/index/login.jsp";
+        public static final String login			= "/index/login";
         public static final String logout			= "/index/logout";
         public static final String faceView 		= "/image/faceView";
         public static final String faceList 		= "/image/faceList";
-        public static final String blogList			= "/blog/blogList";
-        public static final String blogView			= "/blog/blogView";
-        public static final String blogCreate		= "/blog/blogCreate";
-        public static final String commentList		= "/comment/commentList";
         public static final String commentCreate	= "/comment/commentCreate";
         public static final String customerView		= "/customer/customerView";
         public static final String customerEdit		= "/customer/customerEdit";
-        public static final String fansAdd			= "/customer/fansAdd";
-        public static final String fansDel			= "/customer/fansDel";
         public static final String notice			= "/notify/notice";
     }
 

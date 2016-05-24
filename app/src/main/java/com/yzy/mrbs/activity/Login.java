@@ -1,12 +1,13 @@
 package com.yzy.mrbs.activity;
-import com.yzy.mrbs.R;
 
+import com.yzy.mrbs.R;
 import com.yzy.mrbs.base.BaseMessage;
 import com.yzy.mrbs.base.BaseService;
 import com.yzy.mrbs.base.BaseUi;
 import com.yzy.mrbs.base.BaseUser;
 import com.yzy.mrbs.base.C;
 import com.yzy.mrbs.model.Customer;
+import com.yzy.mrbs.phalapi.PhalapiHttpUtil;
 import com.yzy.mrbs.service.NoticeService;
 
 
@@ -22,6 +23,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -60,7 +62,7 @@ public class Login extends BaseUi {
             password_edit.setText(settings.getString("password", ""));
         }
         // 记住密码复选框
-        mCheckBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener(){
+        mCheckBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SharedPreferences.Editor editor = settings.edit();
@@ -76,45 +78,61 @@ public class Login extends BaseUi {
                 editor.commit();//关闭editor
             }
         });
+
     }
+
     /**
      * btn_login控件的点击事件，执行doTaskLogin方法
      */
     private class LoginOnClickListener implements View.OnClickListener {
         public void onClick(View v) {
-            if(username_edit.length() == 0|| password_edit.length()== 0) {
+            if (username_edit.length() == 0 || password_edit.length() == 0) {
                 toast("请输入用户名密码");
             }
+            //旧方法适用于Hush Framework框架服务端
 //            doTaskLogin();
-            forward(UiMain.class);
-//            forward(HttpClientTest.class);
+            //新方法适用于Pi框架服务端
+            if (loginPro()) {
+                // 启动UiMain Activity
+                forward(UiMain.class);
+            } else {
+                toast("用户名密码错误");
+            }
         }
+
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////                 旧方法适用于Hush Framework框架服务端             /////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
-     *使用 BaseUi中的doTaskAsync方法来发送异步请求到服务端的登陆接口进行登陆操作
+     * 使用 BaseUi中的doTaskAsync方法来发送异步请求到服务端的登陆接口进行登陆操作
      */
-    private void doTaskLogin(){
+    private void doTaskLogin() {
         app.setLong(System.currentTimeMillis());
         //输入不为空时进行网络请求
-        if(username_edit.length() > 0&& password_edit.length() > 0) {
-            HashMap<String,String> urlParams = new HashMap<String,String>();
-            urlParams.put("name",username_edit.getText().toString());
-            urlParams.put("pass",password_edit.getText().toString());
-            try{
-                this.doTaskAsync(C.task.login,C.api.login,urlParams);
-            }catch(Exception e){
+        if (username_edit.length() > 0 && password_edit.length() > 0) {
+            HashMap<String, String> urlParams = new HashMap<String, String>();
+            urlParams.put("username", username_edit.getText().toString());
+            urlParams.put("userpass", password_edit.getText().toString());
+            try {
+                //POST请求方法
+                this.doTaskAsync(C.task.login, C.api.login, urlParams);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
     }
-    //////////////////异步回掉方法（在获取到网络请求之后才会被调用）/////////////////////
     /**
+     * 异步回掉方法（在获取到网络请求之后才会被调用）
      * 用于接受和处理异步请求结果的回掉方法，与doTaskAsync方法对应
      * 此方法会从服务器端接口返回的JSON消息中解析出Customer对象
      */
-    public void onTaskComplete(int taskId,BaseMessage message){
-        super.onTaskComplete(taskId,message);
+    public void onTaskComplete(int taskId, BaseMessage message) {
+        super.onTaskComplete(taskId, message);
         switch (taskId) {
             case C.task.login:
                 Customer customer = null;
@@ -149,14 +167,16 @@ public class Login extends BaseUi {
                 break;
         }
     }
+
     /**
      * 网络失败时执行的回掉方法
      * 默认弹出网络失败提示，提示文字的常量名为C.err.network
      * 可根据需要重写
      */
-    public void onNetworkError (int taskId) {
+    public void onNetworkError(int taskId) {
         super.onNetworkError(taskId);
     }
+
     /**
      * 在登陆界面中按后退按钮就关闭程序
      * 其中doFinish方法在BaseUi中定义
@@ -167,4 +187,32 @@ public class Login extends BaseUi {
         }
         return super.onKeyDown(keyCode, event);
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////                      新方法适用于Pi框架服务端                     ////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private boolean loginPro() {
+
+        JSONObject jsonObj;
+        try {
+            jsonObj = query();
+            // 代码号为200
+            if (jsonObj.getInt("ret") == 200){
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    // 定义发送请求的方法
+    private JSONObject query()
+            throws Exception {
+        // 定义发送请求的URL
+        String slogin = "http://192.168.1.103:80/PhalApi/Public/user/?service=User.userlogin" + "&username=" + username_edit.getText().toString() + "&userpass=" + password_edit.getText().toString();
+        // 发送请求（GET）
+        return new JSONObject(PhalapiHttpUtil.getRequest(slogin));
+    }
+
 }

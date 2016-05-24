@@ -349,15 +349,16 @@ public class BaseUi extends Activity {
      * @param taskId
      * @param taskUrl
      */
-    public void doTaskAsync (int taskId, String taskUrl) {
-        showLoadBar();
-        taskPool.addTask(taskId, taskUrl, new BaseTask(){
+    public void doTaskAsync(int taskId, String taskUrl) {
+//        showLoadBar();
+        taskPool.addTask(taskId, taskUrl, new BaseTask() {
             @Override
-            public void onComplete (String httpResult) {
+            public void onComplete(String httpResult) {
                 sendMessage(BaseTask.TASK_COMPLETE, this.getId(), httpResult);
             }
+
             @Override
-            public void onError (String error) {
+            public void onError(String error) {
                 sendMessage(BaseTask.NETWORK_ERROR, this.getId(), null);
             }
         }, 0);
