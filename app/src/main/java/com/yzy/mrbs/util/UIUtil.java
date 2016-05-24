@@ -24,13 +24,21 @@ public class UIUtil {
     public static String getCustomerInfo (Context ctx, Customer customer) {
         Resources resources = ctx.getResources();
         StringBuffer sb = new StringBuffer();
-        sb.append(resources.getString(R.string.tpl_list_info_text_bottom));
+        sb.append(resources.getString(R.string.info_username));
         sb.append(" ");
-        sb.append(customer.getBlogcount());
         sb.append("  |  ");
-        sb.append(resources.getString(R.string.title_alert));
+        sb.append(customer.getName());
+        sb.append("                   ");
+        sb.append(resources.getString(R.string.info_phone));
         sb.append(" ");
-        sb.append(customer.getFanscount());
+        sb.append("  |  ");
+        sb.append(customer.getPhone());
+        sb.append("                    ");
+        sb.append(resources.getString(R.string.info_email));
+        sb.append(" ");
+        sb.append("  |  ");
+        sb.append(customer.getEmail());
+
         return sb.toString();
     }
 }

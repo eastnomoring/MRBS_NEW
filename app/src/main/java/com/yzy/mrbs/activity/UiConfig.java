@@ -16,13 +16,17 @@ import com.yzy.mrbs.base.BaseMessage;
 import com.yzy.mrbs.base.BaseTask;
 import com.yzy.mrbs.base.BaseUi;
 import com.yzy.mrbs.base.BaseUiUser;
+import com.yzy.mrbs.base.BaseUser;
 import com.yzy.mrbs.base.C;
 import com.yzy.mrbs.list.SimpleList;
 import com.yzy.mrbs.model.Config;
 import com.yzy.mrbs.model.Customer;
+import com.yzy.mrbs.phalapi.PhalapiHttpUtil;
 import com.yzy.mrbs.util.AppCache;
 import com.yzy.mrbs.util.AppUtil;
 import com.yzy.mrbs.util.UIUtil;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -34,6 +38,8 @@ public class UiConfig extends BaseUiUser {
     private ListView listConfig;
     private ImageView faceImage;
     private String faceImageUrl;
+    private String s_getinfo_request;
+    private String sign = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +59,6 @@ public class UiConfig extends BaseUiUser {
     public void onStart() {
         super.onStart();
 
-        //更新用户信息
-        update_user_info();
 
         // 列表参数准备
         final ArrayList<Config> dataList = new ArrayList<Config>();
@@ -81,14 +85,51 @@ public class UiConfig extends BaseUiUser {
             }
         });
 
-        // 获取用户信息
+        // 获取用户信息 适用于旧服务器框架
 //        HashMap<String, String> cvParams = new HashMap<String, String>();
 //        cvParams.put("customerId", customer.getId());//使用用户ID 联网 在 服务端查看用户信息接口 获取用户信息
 //        this.doTaskAsync(C.task.customerView, C.api.customerView, cvParams);
-    }
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // 异步回调方法（获取网络请求后才会被调用）
 
+
+        // 获取用户信息 适用于新服务器框架
+        customer.getId();
+        String s_setsign = "http://192.168.1.103:80/PhalApi/Public/user/?service=User.getuserinfo"+"&userid=" +customer.getId();
+        try {
+            s_getinfo_request = PhalapiHttpUtil.getRequest(s_setsign);
+        } catch (Exception e) {
+            e.printStackTrace();
+            toast("网络连接失败，未更新您的签名");
+        }
+        try {
+            JSONObject jsonObj = new JSONObject(s_getinfo_request);
+            JSONObject jsonObj_data = new JSONObject(jsonObj.getString("data"));
+            sign = jsonObj_data.getString("sign");
+            BaseUser.setSimpleInfo(
+                    jsonObj_data.getString("userid"),
+                    jsonObj_data.getString("username"),
+                    jsonObj_data.getString("userpass"),
+                    sign,
+                    jsonObj_data.getString("email"),
+                    jsonObj_data.getString("phone")
+                    );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //更新用户信息
+        update_user_info();
+    }
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////                 旧方法适用于Hush Framework框架服务端             //////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     *  异步回调方法（获取网络请求后才会被调用）
+     * @param taskId
+     * @param message
+     */
     @Override
     public void onTaskComplete(int taskId, BaseMessage message) {
         super.onTaskComplete(taskId, message);
@@ -116,9 +157,9 @@ public class UiConfig extends BaseUiUser {
     public void onNetworkError (int taskId) {
         super.onNetworkError(taskId);
     }
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // 内部类
-
+    /**
+     * 内部类
+     */
     private class ConfigHandler extends BaseHandler {
         public ConfigHandler(BaseUi ui) {
             super(ui);
@@ -139,8 +180,7 @@ public class UiConfig extends BaseUiUser {
             }
         }
     }
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // 其他方法
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             doFinish();
@@ -148,10 +188,14 @@ public class UiConfig extends BaseUiUser {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    /**
+     * 从本地更新用户签名
+     */
     public void update_user_info(){
         TextView textTop = (TextView) this.findViewById(R.id.tpl_list_info_text_top);
         TextView textBottom = (TextView) this.findViewById(R.id.tpl_list_info_text_bottom);
-        textTop.setText(customer.getSign());//用户签名
+        textTop.setText(sign);//用户签名
         textBottom.setText(UIUtil.getCustomerInfo(this, customer));//用户信息
     }
 

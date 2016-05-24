@@ -30,7 +30,7 @@
             android:paddingLeft="12dip"
             android:paddingRight="10dip"
             android:focusable="false"
-            android:text="@string/tpl_list_info_text_top"
+            android:text="@string/info_sign"
             android:layout_marginTop="3dip"
             android:layout_weight="1"/>
         <TextView android:id="@+id/tpl_list_info_text_bottom"
@@ -39,7 +39,7 @@
             android:paddingLeft="12dip"
             android:paddingRight="10dip"
             android:focusable="false"
-            android:text="@string/tpl_list_info_text_bottom"
+            android:text="@string/info_info"
             android:layout_weight="1"/>
     </LinearLayout>
 </LinearLayout>

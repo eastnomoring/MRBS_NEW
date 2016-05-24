@@ -27,6 +27,23 @@ public class BaseUser {
         customer.setSign(mc.getSign());
         customer.setFace(mc.getFace());
     }
+    static public void setBaesInfo (String id,String name,String pass) {
+        Customer customer = Customer.getInstance();
+        customer.setId(id);
+        customer.setName(name);
+        customer.setPass(pass);
+    }
+
+    static public void setSimpleInfo (String id,String name,String pass,String sign,String email,String phone) {
+        Customer customer = Customer.getInstance();
+        customer.setId(id);
+        customer.setName(name);
+        customer.setPass(pass);
+        customer.setSign(sign);
+        customer.setEmail(email);
+        customer.setPhone(phone);
+
+    }
 
     static public Customer getCustomer () {
         return Customer.getInstance();

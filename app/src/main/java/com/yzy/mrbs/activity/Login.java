@@ -38,6 +38,8 @@ public class Login extends BaseUi {
     private EditText password_edit;
     private CheckBox mCheckBox;
     private SharedPreferences settings;
+    private String slogin_request ;    //点击登录后的JSON字符串类型返回值
+    private String uasrid ;            //提取的用户ID
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +94,7 @@ public class Login extends BaseUi {
             //旧方法适用于Hush Framework框架服务端
 //            doTaskLogin();
             //新方法适用于Pi框架服务端
+
             if (loginPro()) {
                 // 启动UiMain Activity
                 forward(UiMain.class);
@@ -101,11 +104,11 @@ public class Login extends BaseUi {
         }
 
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////                 旧方法适用于Hush Framework框架服务端             /////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////                 旧方法适用于Hush Framework框架服务端             //////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 使用 BaseUi中的doTaskAsync方法来发送异步请求到服务端的登陆接口进行登陆操作
@@ -199,6 +202,9 @@ public class Login extends BaseUi {
             jsonObj = query();
             // 代码号为200
             if (jsonObj.getInt("ret") == 200){
+                uasrid = jsonObj.getJSONObject("data").getString("userid");
+                BaseUser.setBaesInfo(uasrid,username_edit.getText().toString(),password_edit.getText().toString());
+                BaseUser.setLogin(true);
                 return true;
             }
         } catch (Exception e) {
@@ -212,7 +218,9 @@ public class Login extends BaseUi {
         // 定义发送请求的URL
         String slogin = "http://192.168.1.103:80/PhalApi/Public/user/?service=User.userlogin" + "&username=" + username_edit.getText().toString() + "&userpass=" + password_edit.getText().toString();
         // 发送请求（GET）
-        return new JSONObject(PhalapiHttpUtil.getRequest(slogin));
+//        return new JSONObject(PhalapiHttpUtil.getRequest(slogin));
+        slogin_request = PhalapiHttpUtil.getRequest(slogin);
+        return new JSONObject(slogin_request);
     }
 
 }
