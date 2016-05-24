@@ -60,7 +60,12 @@ public class UiEditText extends BaseUiUser {
 //                        doTaskAsync(C.task.customerEdit, C.api.customerEdit, urlParams);//更新服务器签名
                         //新框架更新网络签名  逻辑
                         customer.getId();
-                        String s_setsign = "http://192.168.1.103:80/PhalApi/Public/user/?service=User.setusersign"+"&userid=" +customer.getId()+"&sign="+input;
+//                        String s_setsign = "http://192.168.1.103:80/PhalApi/Public/user/?service=User.setusersign"
+//                                +"&userid=" +customer.getId()
+//                                +"&sign="+input;
+                        String s_setsign = "http://115.28.193.57:80/PhalApi/Public/user/?service=User.setusersign"
+                                +"&userid=" +customer.getId()
+                                +"&sign="+input;
                         try {
                             s_setsign_request = PhalapiHttpUtil.getRequest(s_setsign);
                         } catch (Exception e) {

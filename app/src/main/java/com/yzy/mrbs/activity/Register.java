@@ -48,7 +48,11 @@ public class Register extends BaseUi {
             if (username_edit.length() == 0 || password_edit.length() == 0|| phone_edit.length() == 0) {
                 toast("用户名、密码、手机号均为必填项");
             }
-            String s_setsign = "http://192.168.1.103:80/PhalApi/Public/user/?service=User.useradd"
+//            String s_setsign = "http://192.168.1.103:80/PhalApi/Public/user/?service=User.useradd"
+//                    +"&username=" +username_edit.getText().toString()
+//                    +"&userpass="+password_edit.getText().toString()
+//                    +"&phone="+phone_edit.getText().toString();
+            String s_setsign = "http://115.28.193.57:80/PhalApi/Public/user/?service=User.useradd"
                     +"&username=" +username_edit.getText().toString()
                     +"&userpass="+password_edit.getText().toString()
                     +"&phone="+phone_edit.getText().toString();

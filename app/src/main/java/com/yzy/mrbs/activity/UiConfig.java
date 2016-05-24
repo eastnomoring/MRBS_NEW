@@ -93,7 +93,8 @@ public class UiConfig extends BaseUiUser {
 
         // 获取用户信息 适用于新服务器框架
         customer.getId();
-        String s_setsign = "http://192.168.1.103:80/PhalApi/Public/user/?service=User.getuserinfo"+"&userid=" +customer.getId();
+//        String s_setsign = "http://192.168.1.103:80/PhalApi/Public/user/?service=User.getuserinfo"+"&userid=" +customer.getId();
+        String s_setsign = "http://115.28.193.57:80/PhalApi/Public/user/?service=User.getuserinfo"+"&userid=" +customer.getId();
         try {
             s_getinfo_request = PhalapiHttpUtil.getRequest(s_setsign);
         } catch (Exception e) {

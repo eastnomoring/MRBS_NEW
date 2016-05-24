@@ -229,7 +229,12 @@ public class Login extends BaseUi {
     private JSONObject query()
             throws Exception {
         // 定义发送请求的URL
-        String slogin = "http://192.168.1.103:80/PhalApi/Public/user/?service=User.userlogin" + "&username=" + username_edit.getText().toString() + "&userpass=" + password_edit.getText().toString();
+//        String slogin = "http://192.168.1.103:80/PhalApi/Public/user/?service=User.userlogin"
+//                + "&username=" + username_edit.getText().toString()
+//                + "&userpass=" + password_edit.getText().toString();
+        String slogin = "http://115.28.193.57:80/PhalApi/Public/user/?service=User.userlogin"
+                + "&username=" + username_edit.getText().toString()
+                + "&userpass=" + password_edit.getText().toString();
         // 发送请求（GET）
 //        return new JSONObject(PhalapiHttpUtil.getRequest(slogin));
         slogin_request = PhalapiHttpUtil.getRequest(slogin);
