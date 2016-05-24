@@ -42,6 +42,8 @@
 
         <activity android:name=".activity.UiSetFace"> </activity>
 
+        <activity android:name=".activity.Register"> </activity>
+
 
 
         <!-- Service defines -->

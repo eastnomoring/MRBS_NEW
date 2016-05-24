@@ -34,6 +34,7 @@ import java.util.HashMap;
  */
 public class Login extends BaseUi {
     private Button btn_login;
+    private Button btn_register;
     private EditText username_edit;
     private EditText password_edit;
     private CheckBox mCheckBox;
@@ -55,6 +56,8 @@ public class Login extends BaseUi {
         mCheckBox = (CheckBox) this.findViewById(R.id.app_login_check_remember);
         btn_login = (Button) findViewById(R.id.signin_button);
         btn_login.setOnClickListener(new LoginOnClickListener());
+        btn_register = (Button) findViewById(R.id.register_button);
+        btn_register.setOnClickListener(new RegisterOnClickListener());
 
         //获取记住的账号和密码
         settings = getPreferences(Context.MODE_PRIVATE);
@@ -83,8 +86,9 @@ public class Login extends BaseUi {
 
     }
 
+
     /**
-     * btn_login控件的点击事件，执行doTaskLogin方法
+     * btn_login控件的点击事件
      */
     private class LoginOnClickListener implements View.OnClickListener {
         public void onClick(View v) {
@@ -101,6 +105,15 @@ public class Login extends BaseUi {
             } else {
                 toast("用户名密码错误");
             }
+        }
+
+    }
+    /**
+     * btn_register控件的点击事件
+     */
+    private class RegisterOnClickListener implements View.OnClickListener {
+        public void onClick(View v) {
+            forward(Register.class);
         }
 
     }

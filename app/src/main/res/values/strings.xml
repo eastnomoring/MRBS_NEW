@@ -11,6 +11,14 @@
     <string name="meeting_room_list">会议室列表</string>
     <string name="login_remember">记住密码</string>
     <string name="edit_submit">保存</string>
+    <string name="login_register">注册</string>
+    <string name="register_username">请输入用户名 - 6到25位 -注册必要项</string>
+    <string name="register_userpass">请输入密码 - 6到22位 -注册必要项</string>
+    <string name="register_phone">请输入手机号 - 11位 -注册必要项</string>
+    <string name="register_email">请输入E-mail</string>
+    <string name="register_phone_t">手机号 </string>
+    <string name="register_email_t">E-mail</string>
+    <string name="app_name_register">会议室预订系统注册界面</string>
 
     <!-- 提示文字 -->
     <string name="msg_loginfail">登录失败</string>

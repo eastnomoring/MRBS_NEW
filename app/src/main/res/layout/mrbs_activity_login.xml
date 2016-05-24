@@ -94,6 +94,18 @@
             android:layout_toLeftOf="@id/miniTwitter_logo"
             android:layout_alignBottom="@id/miniTwitter_logo"
             android:paddingBottom="8dp"/>
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
+            android:text="@string/login_register"
+            android:id="@+id/register_button"
+            android:layout_below="@+id/register_link"
+            android:layout_alignLeft="@+id/register_link"
+            android:layout_alignStart="@+id/register_link"
+            android:layout_alignRight="@+id/register_link"
+            android:layout_alignEnd="@+id/register_link" />
     </RelativeLayout>
 </LinearLayout>
 
