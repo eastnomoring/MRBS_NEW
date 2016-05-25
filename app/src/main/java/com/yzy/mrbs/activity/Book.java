@@ -36,9 +36,6 @@ import org.json.JSONObject;
  */
 public class Book extends BaseUiUser {
 
-    /**
-     * Called when the activity is first created.
-     */
     private List<Map<String, Object>> mData;   //本地信息
     private static List<Map<String, Object>> mSData;    //网络信息
     private static List<Room> rooms;                  //JSON字符串中提取的Room列表
@@ -70,6 +67,7 @@ public class Book extends BaseUiUser {
         }
         try {
             JSONObject jsonObj = new JSONObject(s_book_request);
+//            toast(jsonObj.getString("msg"));
             JSONArray array = new JSONArray(jsonObj.getString("data"));
             for (int i = 0; i < array.length(); i++) {
                 JSONObject item = array.getJSONObject(i);
@@ -116,9 +114,13 @@ public class Book extends BaseUiUser {
             this.mInflater = LayoutInflater.from(context);
         }
         @Override
-        public int getCount() {
+        public int getCount() {  //制定包含的选项个数
             // TODO Auto-generated method stub
-            return mData.size();
+            if (mSData == null) {
+                return mData.size();
+            } else {
+                return mSData.size();
+            }
         }
         @Override
         public Object getItem(int position) {

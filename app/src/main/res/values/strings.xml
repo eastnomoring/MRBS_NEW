@@ -19,6 +19,7 @@
     <string name="register_phone_t">手机号 </string>
     <string name="register_email_t">E-mail</string>
     <string name="app_name_register">会议室预订系统注册界面</string>
+    <string name="note_search">查看详情</string>
 
     <!-- 提示文字 -->
     <string name="msg_loginfail">登录失败</string>
@@ -56,9 +57,7 @@
     <string name="book_username_edit">您的用户名</string>
     <string name="book_phone_edit">您的手机号</string>
     <string name="book_room_edit">您要预约的会议室</string>
-    <string name="book_time_edit">
-        点击左侧按钮设置预约时间
-    </string>
+    <string name="book_time_edit">点击左侧按钮设置预约时间</string>
     <string name="book_email_edit">可输入您的E-mail 方便通知</string>
     <string name="book_note_edit">
         1、这里可以填入您的会议内容 便于管理员审核

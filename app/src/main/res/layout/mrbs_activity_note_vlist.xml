@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="70.0dip"
-    android:background="@drawable/btn_normal"
+    android:background="@drawable/blog_2"
     android:drawingCacheQuality="high"
     android:minHeight="70.0dip"
     android:orientation="horizontal">
@@ -14,12 +14,20 @@
         android:layout_alignTop="@+id/sItemIcon"
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dip"
-        android:layout_toRightOf="@+id/sItemIcon"
         android:gravity="center_vertical"
         android:singleLine="true"
         android:textColor="@color/listTitle_book"
         android:textSize="20.0sp"
         android:textStyle="bold"
-        android:text="您于**月**时**分预约**会议室 预约**"/>
+        android:text="记录*"/>
+    <Button
+        android:id="@+id/mrbs_activity_note_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:text="@string/note_search"
+        android:background="@drawable/xml_btn_detail_selecter_book_confirm"/>
 
 </RelativeLayout>

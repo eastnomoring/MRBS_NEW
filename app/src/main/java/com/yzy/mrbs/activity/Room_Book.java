@@ -133,7 +133,8 @@ public class Room_Book extends BaseUiUser {
                     +"&minute_end="+minute_end
                     +"&phone="+book_edit_phone.getText().toString()
                     +"&email="+book_edit_email.getText().toString()
-                    +"&roomnote="+book_edit_note.getText().toString();
+                    +"&roomnote="+book_edit_note.getText().toString()
+                    +"&roomname="+book_text_room.getText().toString();
             try {
                 s_book_request = PhalapiHttpUtil.getRequest(s_setbook);
             } catch (Exception e) {
@@ -144,7 +145,6 @@ public class Room_Book extends BaseUiUser {
                 JSONObject jsonObj = new JSONObject(s_book_request);
                 msg = jsonObj.getString("msg");
                 toast(msg);
-
                 if (jsonObj.getInt("ret") == 200) {
                     toast("您的预订已提交，稍后由会议室管理员确认！");
 //                    forward(Login.class);
