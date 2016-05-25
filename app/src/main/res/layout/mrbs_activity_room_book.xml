@@ -1,61 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/myScrollView"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+android:id="@+id/myScrollView"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent">
 
-	<LinearLayout
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:orientation="vertical">
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_login"
+    android:orientation="vertical"
+    android:weightSum="1">
 
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="选择预订会议室的具体时间" />
-		<!-- 定义一个DatePicker组件 -->
-		<DatePicker
-			android:id="@+id/datePicker"
-			android:layout_width="wrap_content"
-			android:layout_height="200dp"
-			android:layout_gravity="center_horizontal"
-			android:calendarViewShown="true"
-			android:endYear="2026"
-			android:spinnersShown="true"
-			android:startYear="2016" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/background_register"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="起始时间" />
-		<!-- 定义一个TimePicker组件 -->
-		<TimePicker
-			android:id="@+id/timePicker_start"
-			android:layout_width="wrap_content"
-			android:layout_height="90dp"
-			android:layout_gravity="center_horizontal" />
+        <TextView
+            android:id="@+id/tv_friend_title"
+            android:layout_width="wrap_content"
+            android:layout_height="50dip"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/app_name_book"
+            android:textColor="#ffffff"
+            android:textSize="20dip" />
 
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="结束时间" />
-		<!-- 定义一个TimePicker组件 -->
-		<TimePicker
-			android:id="@+id/timePicker_end"
-			android:layout_width="wrap_content"
-			android:layout_height="90dp"
-			android:layout_gravity="center_horizontal" />
-		<!-- 显示用户输入日期、时间的控件 -->
-		<EditText
-			android:id="@+id/show"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:cursorVisible="false"
-			android:inputType="none" />
-		<Button
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:text="@string/btn_confirm"
-			android:id="@+id/room_book_ok"/>
-	</LinearLayout>
+        <Button
+            android:id="@+id/btn_book_comfirm"
+            android:layout_width="65.83dp"
+            android:layout_height="30.5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/xml_btn_detail_selecter_book_confirm"
+            android:text="@string/btn_confirm" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/editRel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04">
+
+        <RelativeLayout
+            android:id="@+id/accountRel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/btn_normal"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/book_username"
+                android:textColor="#000"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/accountEdittext"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/account"
+                android:layout_toRightOf="@+id/account"
+                android:background="@null"
+                android:hint="@string/book_username_edit"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/roomRel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/accountRel"
+            android:background="@drawable/btn_pressed"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/register_phone_t"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/book_room"
+                android:textColor="#000"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/roomEdittext"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/register_phone_t"
+                android:layout_toRightOf="@+id/register_phone_t"
+                android:background="@null"
+                android:hint="@string/book_room_edit"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/phoneRel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/roomRel"
+            android:background="@drawable/btn_normal"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/book_phone"
+                android:textColor="#000"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/phoneEdittext"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/phone"
+                android:layout_toRightOf="@+id/phone"
+                android:background="@null"
+                android:hint="@string/book_phone_edit"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/emailRel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phoneRel"
+            android:background="@drawable/btn_pressed"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/book_email"
+                android:textColor="#000"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/emailEdittext"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/email"
+                android:layout_toRightOf="@+id/email"
+                android:background="@null"
+                android:hint="@string/book_email_edit"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/timeRel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emailRel"
+            android:background="@drawable/btn_normal"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/book_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/xml_btn_detail_selecter_book_time"
+                android:text="@string/book_time"
+                android:textColor="#000"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/book_time_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/book_time"
+                android:layout_toRightOf="@+id/book_time"
+                android:background="@null"
+                android:hint="@string/book_time_edit"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/noteRel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/timeRel"
+            android:background="@drawable/btn_pressed"
+            android:clickable="true"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/book_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:text="@string/book_note"
+                android:textColor="#000"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/book_note_edit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/book_note"
+                android:layout_toRightOf="@+id/book_note"
+                android:background="@null"
+                android:hint="@string/book_note_edit"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
 </ScrollView>

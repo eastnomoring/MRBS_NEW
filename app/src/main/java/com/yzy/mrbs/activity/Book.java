@@ -3,6 +3,7 @@ package com.yzy.mrbs.activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -132,7 +133,7 @@ public class Book extends BaseUiUser {
         //****************************************final方法
         // 注意原本getView方法中的int position变量是非final的，现在改为final
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder holder = null;
             if (convertView == null) {
                 holder = new ViewHolder();
@@ -170,7 +171,15 @@ public class Book extends BaseUiUser {
                 holder.viewBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        forward(Room_Book.class);
+                        //转到预订界面Room_Book,并传递参数
+                        Intent intent = new Intent(Book.this, Room_Book.class);
+                        //用Bundle携带数据
+                        Bundle bundle = new Bundle();
+                        //传递roomid、roomname
+                        bundle.putString("roomid", mSData.get(position).get("id").toString());
+                        bundle.putString("roomname", mSData.get(position).get("name").toString());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
 //                        showInfo(position);
                     }
                 });

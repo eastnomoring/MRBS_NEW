@@ -30,6 +30,8 @@
 
         <activity android:name=".activity.Room_Book"> </activity>
 
+        <activity android:name=".activity.Room_Book_Time"> </activity>
+
         <activity android:name=".activity.Book"> </activity>
 
         <activity android:name=".activity.BookSearch"> </activity>

@@ -3,12 +3,14 @@ package com.yzy.mrbs.activity;
 import java.util.Calendar;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 
@@ -21,75 +23,89 @@ import com.yzy.mrbs.base.BaseUiUser;
  */
 public class Room_Book extends BaseUiUser {
 
-    // 定义5个记录当前时间的变量
     private int year;
     private int month;
     private int day;
-    private int hour;
-    private int minute;
     private int hour_start;
     private int minute_start;
     private int hour_end;
     private int minute_end;
-    private Button room_book_btn_confirm;
+
+    private String book_roomid;
+    private String book_roomname;
+    private EditText book_edit_username;
+    private TextView book_text_room;
+    private EditText book_edit_phone;
+    private EditText book_edit_email;
+    private TextView book_text_time;
+    private EditText book_edit_note;
+    private Button btn_book_comfirm;
+    private Button btn_book_time;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.mrbs_activity_room_book);
-        DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
-        TimePicker timePicker_start = (TimePicker) findViewById(R.id.timePicker_start);
-        TimePicker timePicker_end = (TimePicker) findViewById(R.id.timePicker_end);
-        room_book_btn_confirm = (Button) findViewById(R.id.room_book_ok);
-        room_book_btn_confirm.setOnClickListener(new ConfirmOnClickListener());
-        // 获取当前的年、月、日、小时、分钟
-        Calendar c = Calendar.getInstance();
-        year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
-        day = c.get(Calendar.DAY_OF_MONTH);
-        hour = c.get(Calendar.HOUR);
-        minute = c.get(Calendar.MINUTE);
-        // 初始化DatePicker组件，初始化时指定监听器
-        datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
 
-            @Override
-            public void onDateChanged(DatePicker arg0, int year
-                    , int month, int day) {
-                Room_Book.this.year = year;
-                Room_Book.this.month = month;
-                Room_Book.this.day = day;
-                // 显示当前日期、时间
-                showDate(year, month, day, hour_start, minute_start, hour_end, minute_end);
-            }
-        });
-        // 为TimePicker指定监听器
-        timePicker_start.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+        book_edit_username = (EditText) this.findViewById(R.id.accountEdittext);
+        book_text_room = (TextView) this.findViewById(R.id.roomEdittext);
+        book_edit_phone = (EditText) this.findViewById(R.id.phoneEdittext);
+        book_edit_email = (EditText) this.findViewById(R.id.emailEdittext);
+        book_text_time = (TextView) this.findViewById(R.id.book_time_text);
+        book_edit_note = (EditText) this.findViewById(R.id.book_note_edit);
 
-            @Override
-            public void onTimeChanged(TimePicker view
-                    , int hourOfDay, int minuteOfDay) {
-                Room_Book.this.hour_start = hourOfDay;
-                Room_Book.this.minute_start = minuteOfDay;
-                // 显示当前日期、时间
-                showDate(year, month, day, hour_start, minute_start, hour_end, minute_end);
 
-            }
-        });
-        // 为TimePicker指定监听器
-        timePicker_end.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+        book_edit_username.setText(customer.getName());
+        book_edit_phone.setText(customer.getPhone());
+        book_edit_email.setText(customer.getEmail());
 
-            @Override
-            public void onTimeChanged(TimePicker view
-                    , int hourOfDay, int minuteOfDay) {
-                Room_Book.this.hour_end = hourOfDay;
-                Room_Book.this.minute_end = minuteOfDay;
-                // 显示当前日期、时间
-                showDate(year, month, day, hour_start, minute_start, hour_end, minute_end);
+        //新页面接收数据
+        Bundle bundle = this.getIntent().getExtras();
+        try {
+            book_roomname = bundle.getString("roomname");
+            book_roomid = bundle.getString("roomid");
 
-            }
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        book_text_room.setText(book_roomname);
+
+
+        //按钮
+        btn_book_comfirm = (Button) findViewById(R.id.btn_book_comfirm);
+        btn_book_comfirm.setOnClickListener(new ConfirmOnClickListener());
+        btn_book_time = (Button) findViewById(R.id.book_time);
+        btn_book_time.setOnClickListener(new ButtonTimeOnClickListener());
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        Bundle bundle = this.getIntent().getExtras();
+        try {
+            year = bundle.getInt("book_time_year");
+            month = bundle.getInt("book_time_month");
+            day = bundle.getInt("book_time_day");
+            hour_start = bundle.getInt("book_time_hour_s");
+            minute_start = bundle.getInt("book_time_minute_s");
+            hour_end = bundle.getInt("book_time_hour_e");
+            minute_end = bundle.getInt("book_time_minute_e");
+            book_text_time.setText("您的预定时间为：" + year + "年"
+                    + (month + 1) + "月" + day + "日  "
+                    + hour_start + "时" + minute_start + "分" + "  " + "到" + "  " + hour_end + "时" + minute_end + "分");
 
+            book_roomname = bundle.getString("roomname");
+            book_roomid = bundle.getString("roomid");
+            book_text_room.setText(book_roomname);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    //确认按钮点击事件
     private class ConfirmOnClickListener implements View.OnClickListener {
         public void onClick(View v) {
             //点击确认
@@ -99,19 +115,21 @@ public class Room_Book extends BaseUiUser {
             mBundle.putString("title", "消息2");
             mBundle.putString("text", srting_room_book);
             openDialog(mBundle);
-
+        }
+    }
+    //预约时间按钮点击事件
+    private class ButtonTimeOnClickListener implements View.OnClickListener {
+        public void onClick(View v) {
+            Intent intent = new Intent(Room_Book.this, Room_Book_Time.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("roomname",book_roomname);
+            bundle.putString("roomid",book_roomid);
+            intent.putExtras(bundle);
+            startActivity(intent);
 
         }
     }
 
-    // 定义在EditText中显示当前日期、时间的方法
-    private void showDate(int year, int month
-            , int day, int hour_s, int minute_s, int hour_e, int minute_e) {
-        EditText show = (EditText) findViewById(R.id.show);
-        show.setText("您的预定时间为：" + year + "年"
-                + (month + 1) + "月" + day + "日  "
-                + hour_s + "时" + minute_s + "分" + "  " + "到" + "  " + hour_e + "时" + minute_e + "分");
-    }
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // 其他方法
     public boolean onKeyDown(int keyCode, KeyEvent event) {
