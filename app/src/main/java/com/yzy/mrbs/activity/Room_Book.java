@@ -16,13 +16,17 @@ import android.widget.TimePicker;
 
 import com.yzy.mrbs.R;
 import com.yzy.mrbs.base.BaseUiUser;
+import com.yzy.mrbs.phalapi.PhalapiHttpUtil;
+
+import org.json.JSONObject;
 
 /**
  * 会议室信息界面
  * Created by ZhiYuan on 2016/5/13.
  */
 public class Room_Book extends BaseUiUser {
-
+    private  String s_book_request;
+    private  String msg;
     private int year;
     private int month;
     private int day;
@@ -109,12 +113,46 @@ public class Room_Book extends BaseUiUser {
     private class ConfirmOnClickListener implements View.OnClickListener {
         public void onClick(View v) {
             //点击确认
-            String srting_room_book = "您的预订已提交，稍后由会议室管理员确认";
-            Bundle mBundle = new Bundle();
-//            mBundle.putString("text", "data from Room_Book");//压入数据
-            mBundle.putString("title", "消息2");
-            mBundle.putString("text", srting_room_book);
-            openDialog(mBundle);
+//            String srting_room_book = "您的预订已提交，稍后由会议室管理员确认";
+//            Bundle mBundle = new Bundle();
+////            mBundle.putString("text", "data from Room_Book");//压入数据
+//            mBundle.putString("title", "消息2");
+//            mBundle.putString("text", srting_room_book);
+//            openDialog(mBundle);
+
+//            String s_setbook = "http://115.28.193.57:80/PhalApi/Public/book/?service=Book.bookadd"
+            String s_setbook = "http://192.168.1.104:80/PhalApi/Public/book/?service=Book.bookadd"
+                    +"&roomid=" +book_roomid
+                    +"&userid="+customer.getId()
+                    +"&year="+year
+                    +"&month="+month
+                    +"&day="+day
+                    +"&hour_start="+hour_start
+                    +"&minute_start="+minute_start
+                    +"&hour_end="+hour_end
+                    +"&minute_end="+minute_end
+                    +"&phone="+book_edit_phone.getText().toString()
+                    +"&email="+book_edit_email.getText().toString()
+                    +"&roomnote="+book_edit_note.getText().toString();
+            try {
+                s_book_request = PhalapiHttpUtil.getRequest(s_setbook);
+            } catch (Exception e) {
+                e.printStackTrace();
+                toast("网络连接失败");
+            }
+            try {
+                JSONObject jsonObj = new JSONObject(s_book_request);
+                msg = jsonObj.getString("msg");
+                toast(msg);
+
+                if (jsonObj.getInt("ret") == 200) {
+                    toast("您的预订已提交，稍后由会议室管理员确认！");
+//                    forward(Login.class);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
     //预约时间按钮点击事件
