@@ -23,10 +23,13 @@ import com.yzy.mrbs.phalapi.PhalapiHttpUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * Created by ZhiYuan on 2016/5/19.
@@ -216,7 +219,7 @@ public class NoteSearch extends BaseUiUser {
                 + mSData.get(position).get("minute_end").toString() + "分";
         new AlertDialog.Builder(this)
                 .setTitle("记录" + (position+1))
-                .setMessage("申请预约的时间：" + mSData.get(position).get("bookaddtime").toString()+ "\n"
+                .setMessage("申请预约的时间：" + paserTime(mSData.get(position).get("bookaddtime").toString())+ "\n"
                         +"预约申请的会议室："+ mSData.get(position).get("roomname").toString()+"\n"
                         +"预约申请的时间段："+timemsg)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -225,6 +228,21 @@ public class NoteSearch extends BaseUiUser {
                     }
                 })
                 .show();
+    }
+
+    /**
+     * 将服务器时间转化为北京时间
+     * @param time
+     * @return
+     */
+    public String paserTime(String time){
+        int i_time = Integer.parseInt(time);
+        System.setProperty("user.timezone", "Asia/Shanghai");
+        TimeZone tz = TimeZone.getTimeZone("Asia/Shanghai");
+        TimeZone.setDefault(tz);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String times = format.format(new Date(i_time * 1000L));
+        return times;
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

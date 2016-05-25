@@ -125,7 +125,7 @@ public class Room_Book extends BaseUiUser {
                     +"&roomid=" +book_roomid
                     +"&userid="+customer.getId()
                     +"&year="+year
-                    +"&month="+month
+                    +"&month="+(month+1)
                     +"&day="+day
                     +"&hour_start="+hour_start
                     +"&minute_start="+minute_start

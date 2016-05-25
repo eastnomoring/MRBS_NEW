@@ -25,20 +25,14 @@ public class UIUtil {
         Resources resources = ctx.getResources();
         StringBuffer sb = new StringBuffer();
         sb.append(resources.getString(R.string.info_username));
-        sb.append(" ");
         sb.append("  |  ");
-        sb.append(customer.getName());
-        sb.append("                   ");
+        sb.append(customer.getName()+"\n");
         sb.append(resources.getString(R.string.info_phone));
-        sb.append(" ");
         sb.append("  |  ");
-        sb.append(customer.getPhone());
-        sb.append("                    ");
+        sb.append(customer.getPhone()+"\n");
         sb.append(resources.getString(R.string.info_email));
-        sb.append(" ");
         sb.append("  |  ");
         sb.append(customer.getEmail());
-
         return sb.toString();
     }
 }
