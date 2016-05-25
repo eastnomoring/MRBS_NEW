@@ -6,88 +6,63 @@ import com.yzy.mrbs.base.BaseModel;
  * Created by ZhiYuan on 2016/5/21.
  */
 public class Room extends BaseModel {
+    private int roomid;
+    private String roomname;
+    private String roominfo;
+    private int roomface;
+    private String roomfaceurl;
 
-    // model columns
-    public final static String COL_ID = "id";
-    public final static String COL_FACE = "face";
-    public final static String COL_DESC = "desc";
-    public final static String COL_TITLE = "title";
-    public final static String COL_AUTHOR = "author";
-    public final static String COL_CONTENT = "content";
-    public final static String COL_COMMENT = "comment";
-    public final static String COL_UPTIME = "uptime";
 
-    private String id;
-    private String face;
-    private String desc;
-    private String title;
-    private String author;
-    private String content;
-    private String comment;
-    private String uptime;
-    public Room(){ }
-    public String getId () {
-        return this.id;
+    public Room(){
+
+    }
+    public Room(int roomid,String roomname,String roominfo,int roomface,String roomfaceurl){
+        this.roomid = roomid;
+        this.roomname = roomname;
+        this.roominfo = roominfo;
+        this.roomface = roomface;
+        this.roomfaceurl = roomfaceurl;
+    }
+    public int getId () {
+        return this.roomid;
     }
 
-    public void setId (String id) {
-        this.id = id;
+    public void setId (int id) {
+        this.roomid = id;
     }
 
-    public String getFace () {
-        return this.face;
+    public int getFace () {
+        return this.roomface;
     }
 
-    public void setFace (String face) {
-        this.face = face;
+    public void setFace (int face) {
+        this.roomface = face;
     }
 
-    public String getDesc () {
-        return this.desc;
+
+    public String getInfo () {
+        return this.roominfo;
     }
 
-    public void setDesc (String desc) {
-        this.desc = desc;
+    public void setInfo (String info) {
+        this.roominfo = info;
     }
 
-    public String getTitle () {
-        return this.title;
+    public String getName () {
+        return this.roomname;
     }
 
-    public void setTitle (String title) {
-        this.title = title;
+    public void setName (String name) {
+        this.roomname = name;
+    }
+    public String getFaceurl () {
+        return this.roomfaceurl;
     }
 
-    public String getAuthor () {
-        return this.author;
+    public void setFaceurl (String url) {
+        this.roomfaceurl = url;
     }
 
-    public void setAuthor (String author) {
-        this.author = author;
-    }
 
-    public String getContent () {
-        return this.content;
-    }
-
-    public void setContent (String content) {
-        this.content = content;
-    }
-
-    public String getComment () {
-        return this.comment;
-    }
-
-    public void setComment (String comment) {
-        this.comment = comment;
-    }
-
-    public String getUptime () {
-        return this.uptime;
-    }
-
-    public void setUptime (String uptime) {
-        this.uptime = uptime;
-    }
 
 }

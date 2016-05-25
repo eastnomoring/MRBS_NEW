@@ -23,6 +23,11 @@ import java.util.Map;
 
 import com.yzy.mrbs.R;
 import com.yzy.mrbs.base.BaseUiUser;
+import com.yzy.mrbs.model.Room;
+import com.yzy.mrbs.phalapi.PhalapiHttpUtil;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * 预定界面
@@ -33,22 +38,54 @@ public class Book extends BaseUiUser {
     /**
      * Called when the activity is first created.
      */
-    private List<Map<String, Object>> mData;
-    private int flag;
+    private List<Map<String, Object>> mData;   //本地信息
+    private static List<Map<String, Object>> mSData;    //网络信息
+    private static List<Room> rooms;                  //JSON字符串中提取的Room列表
+    private String s_book_request;            //从服务器上获取的JSON字符串
     public static String title[] = new String[]{"会议室0", "会议室1", "会议室2", "会议室3", "会议室4", "会议室5", "会议室6", "会议室7", "会议室8", "会议室9"};
     public static String info[] = new String[]{"info0", "info1", "info2", "info3", "info4", "info5", "info6", "info7", "info8", "info9",};
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mrbs_activity_book);
-        mData = getData();
         ListView listView = (ListView) findViewById(R.id.app_index_list_view);
+        mData = getData();  //本地信息
+        rooms = getLists();
+        mSData = getSData();//网络信息
         MyAdapter adapter = new MyAdapter(this);
         listView.setAdapter(adapter);
 
     }
+    //获取Room信息列表
+    private List<Room> getLists() {
+        String s_setsign = "http://115.28.193.57:80/PhalApi/Public/room/?service=Room.getroomlist";
+        List<Room> mlists = new ArrayList<Room>();
+        try {
+            s_book_request = PhalapiHttpUtil.getRequest(s_setsign);
+        } catch (Exception e) {
+            e.printStackTrace();
+            toast("网络连接失败");
+        }
+        try {
+            JSONObject jsonObj = new JSONObject(s_book_request);
+            JSONArray array = new JSONArray(jsonObj.getString("data"));
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject item = array.getJSONObject(i);
+                int roomid = item.getInt("roomid");
+                String roomname = item.getString("roomname");
+                String roominfo = item.getString("roominfo");
+                int roomface = item.getInt("roomface");
+                String roomfaceurl = item.getString("roomfaceurl");
+                mlists.add(new Room(roomid, roomname, roominfo,roomface,roomfaceurl));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mlists;
+    }
 
-    //获取动态数组数据  可以由其他地方传来(json等)
+    //获取数组数据  本地信息
     private List<Map<String, Object>> getData() {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         for (int i = 0; i < title.length; i++) {
@@ -59,44 +96,47 @@ public class Book extends BaseUiUser {
         }
         return list;
     }
+    //获取动态数组数据  由JSON传来
+    private List<Map<String, Object>> getSData() {
+        List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+        for (int i = 0; i < rooms.size(); i++) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("id", rooms.get(i).getId());
+            map.put("name", rooms.get(i).getName());
+            map.put("info", rooms.get(i).getInfo());
+            data.add(map);
+        }
+        return data;
+    }
 
     public class MyAdapter extends BaseAdapter {
-
         private LayoutInflater mInflater;
-
         public MyAdapter(Context context) {
             this.mInflater = LayoutInflater.from(context);
         }
-
         @Override
         public int getCount() {
             // TODO Auto-generated method stub
             return mData.size();
         }
-
         @Override
         public Object getItem(int position) {
             // TODO Auto-generated method stub
             return null;
         }
-
         @Override
         public long getItemId(int position) {
             // TODO Auto-generated method stub
             return 0;
         }
-
         //****************************************final方法
         // 注意原本getView方法中的int position变量是非final的，现在改为final
         @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder = null;
             if (convertView == null) {
-
                 holder = new ViewHolder();
-
                 //可以理解为从vlist获取view  之后把view返回给ListView
-
                 convertView = mInflater.inflate(R.layout.mrbs_activity_book_vlist, null);
                 holder.title = (TextView) convertView.findViewById(R.id.title);
                 holder.info = (TextView) convertView.findViewById(R.id.info);
@@ -105,21 +145,37 @@ public class Book extends BaseUiUser {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-
-            holder.title.setText((String) mData.get(position).get("title"));
-            holder.info.setText((String) mData.get(position).get("info"));
-            holder.viewBtn.setTag(position);
-            //给Button添加单击事件  添加Button之后ListView将失去焦点  需要的直接把Button的焦点去掉
-            holder.viewBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    forward(Room_Book.class);
-//                    showInfo(position);
+            if (mSData == null) {
+                holder.title.setText((String) mData.get(position).get("title"));
+                holder.info.setText((String) mData.get(position).get("info"));
+                holder.viewBtn.setTag(position);
+                //给Button添加单击事件  添加Button之后ListView将失去焦点  需要的直接把Button的焦点去掉
+                holder.viewBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //forward(Room_Book.class);
+                        //showInfo(position);
+                    }
+                });
+                //holder.viewBtn.setOnClickListener(MyListener(position));
+            } else {
+                try {
+                    holder.title.setText((String) mSData.get(position).get("name"));
+                    holder.info.setText((String) mSData.get(position).get("info"));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            });
+                holder.viewBtn.setTag(position);
+                //给Button添加单击事件  添加Button之后ListView将失去焦点  需要的直接把Button的焦点去掉
+                holder.viewBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        forward(Room_Book.class);
+//                        showInfo(position);
+                    }
+                });
 
-            //holder.viewBtn.setOnClickListener(MyListener(position));
-
+            }
             return convertView;
         }
     }
@@ -170,8 +226,6 @@ public class Book extends BaseUiUser {
 //	    }
 //
 //
-
-
     /**
      *  提取出来方便点
      */
@@ -180,7 +234,6 @@ public class Book extends BaseUiUser {
         public TextView info;
         public Button viewBtn;
     }
-
     /**
      * 测试用
      * @param position

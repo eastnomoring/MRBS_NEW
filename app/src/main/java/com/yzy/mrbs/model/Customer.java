@@ -24,7 +24,7 @@ public class Customer {
     private String email;         //E-mail
     private String phone;        //手机号
 
-    private String uptime;
+
 
     // default is no login
     private boolean isLogin = false;
@@ -96,14 +96,6 @@ public class Customer {
 
     public void setFaceurl(String faceurl) {
         this.faceurl = faceurl;
-    }
-
-    public String getUptime() {
-        return this.uptime;
-    }
-
-    public void setUptime(String uptime) {
-        this.uptime = uptime;
     }
 
     public String getEmail() {
