@@ -120,8 +120,8 @@ public class Room_Book extends BaseUiUser {
 //            mBundle.putString("text", srting_room_book);
 //            openDialog(mBundle);
 
-//            String s_setbook = "http://115.28.193.57:80/PhalApi/Public/book/?service=Book.bookadd"
-            String s_setbook = "http://192.168.1.104:80/PhalApi/Public/book/?service=Book.bookadd"
+//            String s_setbook = "http://192.168.1.104:80/PhalApi/Public/book/?service=Book.bookadd"
+            String s_setbook = "http://115.28.193.57:80/PhalApi/Public/book/?service=Book.bookadd"
                     +"&roomid=" +book_roomid
                     +"&userid="+customer.getId()
                     +"&year="+year

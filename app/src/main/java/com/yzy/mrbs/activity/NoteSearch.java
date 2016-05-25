@@ -56,8 +56,8 @@ public class NoteSearch extends BaseUiUser {
 
     //获取Note信息列表
     private List<Note> getLists() {
-        ///PhalApi/Public/book/?service=Book.getbookinfo&userid=1
-        String s_setsign = "http://192.168.1.104:80/PhalApi/Public/book/?service=Book.getbookinfo"+"&userid="+customer.getId();
+//        String s_setsign = "http://192.168.1.104:80/PhalApi/Public/book/?service=Book.getbookinfo"+"&userid="+customer.getId();
+        String s_setsign = "http://115.28.193.57:80/PhalApi/Public/book/?service=Book.getbookinfo"+"&userid="+customer.getId();
         List<Note> mlists = new ArrayList<Note>();
         try {
             s_note_request = PhalapiHttpUtil.getRequest(s_setsign);
