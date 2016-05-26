@@ -279,8 +279,8 @@ public class Book extends BaseUiUser {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            doFinish();
             forward(UiMain.class);
+            this.finish();
         }
         return super.onKeyDown(keyCode, event);
     }

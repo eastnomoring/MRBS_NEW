@@ -201,6 +201,9 @@ public class Room_Book_Time extends BaseUiUser {
 
     private class ConfirmOnClickListener implements View.OnClickListener {
         public void onClick(View v) {
+            if(hour_start > hour_end){
+                toast(" 您设置的时间有误，开始时间大于结束时间，提交后将不会被通过！！！ ");
+            }
             Intent intent = new Intent(Room_Book_Time.this, Room_Book.class);
             //点击确认
             Bundle mBundle = new Bundle();
@@ -239,7 +242,7 @@ public class Room_Book_Time extends BaseUiUser {
             mBundle.putString("roomid", book_roomid);
             intent.putExtras(mBundle);
             startActivity(intent);
-            doFinish();
+            this.finish();
 //            forward(Room_Book.class);
         }
         return super.onKeyDown(keyCode, event);

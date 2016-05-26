@@ -172,8 +172,8 @@ public class Room_Book extends BaseUiUser {
     // 其他方法
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            doFinish();
-            forward(UiMain.class);
+            forward(Book.class);
+            this.finish();
         }
         return super.onKeyDown(keyCode, event);
     }

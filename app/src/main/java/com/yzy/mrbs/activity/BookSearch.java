@@ -128,14 +128,14 @@ public class BookSearch extends Book {
                 holder.viewBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        Intent intent = new Intent(BookSearch.this, BookSearch_RoomInfo.class);
-//                        //用Bundle携带数据
-//                        Bundle bundle = new Bundle();
-//                        //传递roomid、roomname
-//                        bundle.putString("roomid", mSData.get(position).get("id").toString());
-//                        bundle.putString("roomname", mSData.get(position).get("name").toString());
-//                        intent.putExtras(bundle);
-//                        startActivity(intent);
+                        Intent intent = new Intent(BookSearch.this, BookSearch_RoomInfo.class);
+                        //用Bundle携带数据
+                        Bundle bundle = new Bundle();
+                        //传递roomid、roomname
+                        bundle.putString("roomid", mSData.get(position).get("id").toString());
+                        bundle.putString("roomname", mSData.get(position).get("name").toString());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
 
                     }
                 });
@@ -153,8 +153,8 @@ public class BookSearch extends Book {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            doFinish();
             forward(UiMain.class);
+            this.finish();
         }
         return super.onKeyDown(keyCode, event);
     }

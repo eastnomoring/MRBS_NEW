@@ -47,16 +47,11 @@ public class NoteSearch extends BaseUiUser {
         mData = getData();//本地信息
         snotes = getLists();
         mSData = getSData();//网络信息
-
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
         ListView listView = (ListView) findViewById(R.id.app_note_search_list_view);
         MyAdapter adapter = new MyAdapter(this);
         listView.setAdapter(adapter);
-    }
 
+    }
     //获取Note信息列表
     private List<Note> getLists() {
 //        String s_setsign = "http://192.168.1.104:80/PhalApi/Public/book/?service=Book.getbookinfo"+"&userid="+customer.getId();
@@ -247,7 +242,7 @@ public class NoteSearch extends BaseUiUser {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            doFinish();
+            this.finish();
             forward(UiMain.class);
         }
         return super.onKeyDown(keyCode, event);
