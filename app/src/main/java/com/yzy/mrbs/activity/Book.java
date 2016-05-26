@@ -40,7 +40,7 @@ public class Book extends BaseUiUser {
     private static List<Map<String, Object>> mSData;    //网络信息
     private static List<Room> rooms;                  //JSON字符串中提取的Room列表
     private String s_book_request;            //从服务器上获取的JSON字符串
-    public static String title[] = new String[]{"会议室0", "会议室1", "会议室2", "会议室3", "会议室4", "会议室5", "会议室6", "会议室7", "会议室8", "会议室9"};
+    public static String title[] = new String[]{"会议室1", "会议室2", "会议室3", "会议室4", "会议室5", "会议室6", "会议室7", "会议室8", "会议室9"};
     public static String info[] = new String[]{"info0", "info1", "info2", "info3", "info4", "info5", "info6", "info7", "info8", "info9",};
 
 
@@ -53,10 +53,14 @@ public class Book extends BaseUiUser {
         mSData = getSData();//网络信息
         MyAdapter adapter = new MyAdapter(this);
         listView.setAdapter(adapter);
+        if (mSData != null) {
+            toast("从服务器获取会议室列表");
+        }
 
     }
+
     //获取Room信息列表
-    private List<Room> getLists() {
+    public List<Room> getLists() {
         String s_setsign = "http://115.28.193.57:80/PhalApi/Public/room/?service=Room.getroomlist";
         List<Room> mlists = new ArrayList<Room>();
         try {
@@ -76,7 +80,7 @@ public class Book extends BaseUiUser {
                 String roominfo = item.getString("roominfo");
                 int roomface = item.getInt("roomface");
                 String roomfaceurl = item.getString("roomfaceurl");
-                mlists.add(new Room(roomid, roomname, roominfo,roomface,roomfaceurl));
+                mlists.add(new Room(roomid, roomname, roominfo, roomface, roomfaceurl));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,8 +99,9 @@ public class Book extends BaseUiUser {
         }
         return list;
     }
+
     //获取动态数组数据  由JSON传来
-    private List<Map<String, Object>> getSData() {
+    public List<Map<String, Object>> getSData() {
         List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
         for (int i = 0; i < rooms.size(); i++) {
             Map<String, Object> map = new HashMap<String, Object>();
@@ -108,11 +113,13 @@ public class Book extends BaseUiUser {
         return data;
     }
 
-    public class MyAdapter extends BaseAdapter {
+    private class MyAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
+
         public MyAdapter(Context context) {
             this.mInflater = LayoutInflater.from(context);
         }
+
         @Override
         public int getCount() {  //制定包含的选项个数
             // TODO Auto-generated method stub
@@ -122,16 +129,19 @@ public class Book extends BaseUiUser {
                 return mSData.size();
             }
         }
+
         @Override
         public Object getItem(int position) {
             // TODO Auto-generated method stub
             return null;
         }
+
         @Override
         public long getItemId(int position) {
             // TODO Auto-generated method stub
             return 0;
         }
+
         //****************************************final方法
         // 注意原本getView方法中的int position变量是非final的，现在改为final
         @Override
@@ -237,16 +247,19 @@ public class Book extends BaseUiUser {
 //	    }
 //
 //
+
     /**
-     *  提取出来方便点
+     * 提取出来方便点
      */
     public final class ViewHolder {
         public TextView title;
         public TextView info;
         public Button viewBtn;
     }
+
     /**
      * 测试用
+     *
      * @param position
      */
     public void showInfo(int position) {

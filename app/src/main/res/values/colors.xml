@@ -26,5 +26,10 @@
     <color name="listTitle_book">#ff23323b</color>
     <color name="text">#ff848f9b</color>
     <color name="write">#ffffffff</color>
+    <!-- 预约显示表（课程表） -->
+    <color name="classIndex" >#CCCCCC</color>
+    <color name="courseTextColor" >#ECECEC</color>
+    <color name="actionBarBg">#6666CC</color>
+    <color name="actionBarText">#EDEDED</color>
 
 </resources>

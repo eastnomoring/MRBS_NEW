@@ -137,7 +137,7 @@ public class NoteSearch extends BaseUiUser {
         return data;
     }
 
-    public class MyAdapter extends BaseAdapter {
+    private class MyAdapter extends BaseAdapter {
 
         private LayoutInflater mInflater;
 

@@ -96,8 +96,7 @@ public class BaseUiUser extends BaseUi {
                             forward(Book.class);//会议室预约
                             break;
                         case R.id.main_tab_2:
-//                            forward(BookSearch.class);//预约查询
-                            forward(HttpClientTest.class);
+                            forward(BookSearch.class);//预约查询
                             break;
                         case R.id.main_tab_3:
                             forward(NoteSearch.class);//记录查询

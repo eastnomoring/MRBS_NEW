@@ -36,6 +36,8 @@
 
         <activity android:name=".activity.BookSearch"> </activity>
 
+        <activity android:name=".activity.BookSearch_RoomInfo"> </activity>
+
         <activity android:name=".activity.NoteSearch"> </activity>
 
         <activity android:name=".activity.HttpClientTest"> </activity>
