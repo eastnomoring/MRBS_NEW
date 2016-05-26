@@ -202,36 +202,9 @@ public class BookSearch_RoomInfo extends BaseUiUser {
 
     }
 
-    //    public void getData(){
-//        List<Period>list1=new ArrayList<Period>();
-//        Period c1 =new Period("软件工程","A402", 1, 4, "典韦", "1002");
-//        list1.add(c1);
-//        list1.add(new Period("C语言", "A101", 6, 3, "甘宁", "1001"));
-//        courseData[0]=list1;
-//
-//        List<Period>list2=new ArrayList<Period>();
-//        list2.add(new Period("计算机组成原理", "A106", 6, 3, "马超", "1001"));
-//        courseData[1]=list2;
-//
-//        List<Period>list3=new ArrayList<Period>();
-//        list3.add(new Period("数据库原理", "A105", 2, 3, "孙权", "1008"));
-//        list3.add(new Period("计算机网络", "A405", 6, 2, "司马懿", "1009"));
-//        list3.add(new Period("电影赏析", "A112", 9, 2, "诸葛亮", "1039"));
-//        courseData[2]=list3;
-//
-//        List<Period>list4=new ArrayList<Period>();
-//        list4.add(new Period("数据结构", "A223", 1, 3, "刘备", "1012"));
-//        list4.add(new Period("操作系统", "A405", 6, 3, "曹操", "1014"));
-//        courseData[3]=list4;
-//
-//        List<Period>list5=new ArrayList<Period>();
-//        list5.add(new Period("Android开发","C120",1,4,"黄盖","1250"));
-//        list5.add(new Period("游戏设计原理","C120",8,4,"陆逊","1251"));
-//        courseData[4]=list5;
-//    }
     public void initWeekPanel(LinearLayout ll, List<Period> data) {
         if (ll == null || data == null || data.size() < 1) {
-            toast("近一周此会议室没有预约");
+//            toast("近一周此会议室没有预约");
             return;
         }
         Log.i("Msg", "初始化面板");
