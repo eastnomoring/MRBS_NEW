@@ -252,9 +252,9 @@ public class BookSearch_RoomInfo extends BaseUiUser {
             tv.setGravity(Gravity.CENTER_HORIZONTAL);
             tv.setTextSize(12);
             tv.setTextColor(getResources().getColor(R.color.courseTextColor));
-            tv.setText(c.getId() + "\n" + c.getStart() + "\n" + c.getStep() + "\n");
-            tv.setBackgroundColor(getResources().getColor(R.color.classIndex));
-//            tv.setBackground(getResources().getDrawable(R.drawable.blog_1));
+//            tv.setText(c.getId() + "\n" + c.getStart() + "\n" + c.getStep() + "\n");
+//            tv.setBackgroundColor(getResources().getColor(R.color.classIndex));
+            tv.setBackground(getResources().getDrawable(R.drawable.background_login));
             ll.addView(tv);
             pre = c;
         }
