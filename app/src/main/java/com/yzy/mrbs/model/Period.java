@@ -4,64 +4,39 @@ package com.yzy.mrbs.model;
  * Created by ZhiYuan on 2016/5/26.
  */
 public class Period {
-    private String name,room,teach,id;//课程名称、上课教室，教师，课程编号
-    int start,step; //开始上课节次， 一共几节课
-    public Period(String name, String room, int start, int step,
-                  String teach, String id) {
+
+    int id; //周几 ：1是星期日、2是星期一、3是星期二、4是星期三、5是星期四、6是星期五、7是星期六
+    double start,step;
+    public Period(int id,double start, double step) {
         super();
-        this.name = name;
-        this.room = room;
+        this.id=id;
         this.start = start;
         this.step = step;
-        this.teach = teach;
-        this.id = id;
-    }
 
-    public String getId() {
+    }
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getRoom() {
-        return room;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
-    }
-
-    public int getStart() {
+    public double getStart() {
         return start;
     }
 
-    public void setStart(int start) {
+    public void setStart(float start) {
         this.start = start;
     }
 
-    public int getStep() {
+    public double getStep() {
         return step;
     }
 
-    public void setStep(int step) {
+    public void setStep(float step) {
         this.step = step;
     }
 
-    public String getTeach() {
-        return teach;
-    }
 
-    public void setTeach(String teach) {
-        this.teach = teach;
-    }
 }

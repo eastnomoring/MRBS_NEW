@@ -47,10 +47,15 @@ public class NoteSearch extends BaseUiUser {
         mData = getData();//本地信息
         snotes = getLists();
         mSData = getSData();//网络信息
+
+
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
         ListView listView = (ListView) findViewById(R.id.app_note_search_list_view);
         MyAdapter adapter = new MyAdapter(this);
         listView.setAdapter(adapter);
-
     }
     //获取Note信息列表
     private List<Note> getLists() {
@@ -126,7 +131,7 @@ public class NoteSearch extends BaseUiUser {
             map.put("status", snotes.get(i).getStatus());
             map.put("bookaddtime", snotes.get(i).getBookaddtime());
             map.put("roomname", snotes.get(i).getRoomname());
-            map.put("note", notes[i]);
+            map.put("note", "记录"+(i+1));
             data.add(map);
         }
         return data;
