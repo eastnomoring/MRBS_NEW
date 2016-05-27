@@ -45,6 +45,14 @@ public class BookSearch_RoomInfo extends BaseUiUser {
     int itemHeight;
     int marTop, marLeft;
 
+    List<Period> list0 = new ArrayList<Period>();     //周一
+    List<Period> list1 = new ArrayList<Period>();     //周二
+    List<Period> list2 = new ArrayList<Period>();     //周三
+    List<Period> list3 = new ArrayList<Period>();     //周四
+    List<Period> list4 = new ArrayList<Period>();     //周五
+    List<Period> list5 = new ArrayList<Period>();     //周六
+    List<Period> list6 = new ArrayList<Period>();     //周日
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mrbs_activity_book_search_room_info);
@@ -61,23 +69,24 @@ public class BookSearch_RoomInfo extends BaseUiUser {
         Calendar cal_1 = Calendar.getInstance();
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
         cal_1.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); //获取本周一的日期
-        Log.i("本周一日期", df1.format(cal_1.getTime()));
+//        Log.i("本周一日期", df1.format(cal_1.getTime()));
+
         Calendar cal_2 = Calendar.getInstance();
         SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
         cal_2.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         cal_2.add(Calendar.WEEK_OF_YEAR, 1);
-        Log.i("本周末日期", df2.format(cal_2.getTime()));
+//        Log.i("本周末日期", df2.format(cal_2.getTime()));
 
 
         //从Note列表中筛选出日期在本周的预约
         Monday = df1.format(cal_1.getTime()).split("-");
-        Log.i("本周一年", Monday[0]);
-        Log.i("本周一月", Monday[1]);
-        Log.i("本周一日", Monday[2]);
+//        Log.i("本周一年", Monday[0]);
+//        Log.i("本周一月", Monday[1]);
+//        Log.i("本周一日", Monday[2]);
         Sunday = df2.format(cal_2.getTime()).split("-");
-        Log.i("本周日年", Sunday[0]);
-        Log.i("本周日月", Sunday[1]);
-        Log.i("本周日日", Sunday[2]);
+//        Log.i("本周日年", Sunday[0]);
+//        Log.i("本周日月", Sunday[1]);
+//        Log.i("本周日日", Sunday[2]);
 
         //数据
         periods = getData();
@@ -136,6 +145,10 @@ public class BookSearch_RoomInfo extends BaseUiUser {
             int minute_start = item.getMinute_start();
             int hour_end = item.getHour_end();
             int minute_end = item.getMinute_end();
+//            Log.i("本周一月", Monday[1]);
+//            Log.i("本周一日", Monday[2]);
+//            Log.i("本周日月", Sunday[1]);
+//            Log.i("本周日日", Sunday[2]);
             if (year >= Integer.parseInt(Monday[0]) &&
                     year <= Integer.parseInt(Sunday[0]) &&
                     month >= Integer.parseInt(Monday[1]) &&
@@ -144,10 +157,12 @@ public class BookSearch_RoomInfo extends BaseUiUser {
                     day <= Integer.parseInt(Sunday[2])
                     ) {
                 Calendar cal = Calendar.getInstance();
-                cal.set(year, month, day);
+//                Log.i("设置年", "" + year);
+//                Log.i("设置月", "" + month);
+//                Log.i("设置日", "" + day);
+                cal.set(year, (month - 1), day); //月份要减一
                 id = cal.get(Calendar.DAY_OF_WEEK);
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); //获取本周一的日期
+//                Log.i("此id为", "" + id);
                 if ((hour_start - 8) >= 0 && hour_end >= hour_start) {
                     start = (hour_start - 8) + (minute_start / 60);
                     step = (60 - minute_start) / 60 + (hour_end - hour_start - 1) + (minute_end / 60);
@@ -157,57 +172,45 @@ public class BookSearch_RoomInfo extends BaseUiUser {
         }
         return list;
     }
-    public void getperiodData(){
 
-        List<Period> list0 = new ArrayList<Period>();
-        List<Period> list1 = new ArrayList<Period>();
-        List<Period> list2 = new ArrayList<Period>();
-        List<Period> list3 = new ArrayList<Period>();
-        List<Period> list4 = new ArrayList<Period>();
-        List<Period> list5 = new ArrayList<Period>();
-        List<Period> list6 = new ArrayList<Period>();
+    public void getperiodData() {
         for (int i = 0; i < periods.size(); i++) {
             Period item = periods.get(i);
             int id = item.getId();
-            if (id == 2) {
+            if (id == 2) {              //星期一
                 list0.add(item);
-            } else if (id == 3) {
+            } else if (id == 3) {       //星期二
                 list1.add(item);
-            } else if (id == 4) {
+            } else if (id == 4) {       //星期三
                 list2.add(item);
-
-            } else if (id == 5) {
+            } else if (id == 5) {       //星期四
                 list3.add(item);
-
-            } else if (id == 6) {
+            } else if (id == 6) {       //星期五
                 list4.add(item);
-
-            } else if (id == 7) {
+            } else if (id == 7) {       //星期六
                 list5.add(item);
-
-            } else if (id == 1) {
+            } else if (id == 1) {       //星期天
                 list6.add(item);
             } else if (id == -1) {
                 return;
             }
 
         }
-        periodData[0]=list0;
-        periodData[1]=list1;
-        periodData[2]=list2;
-        periodData[3]=list3;
-        periodData[4]=list4;
-        periodData[5]=list5;
-        periodData[6]=list6;
+        periodData[0] = list0;   //周一
+        periodData[1] = list1;
+        periodData[2] = list2;
+        periodData[3] = list3;
+        periodData[4] = list4;
+        periodData[5] = list5;
+        periodData[6] = list6;  //周日
 
     }
 
     public void initWeekPanel(LinearLayout ll, List<Period> data) {
         if (ll == null || data == null || data.size() < 1) {
-//            toast("近一周此会议室没有预约");
             return;
         }
-        Log.i("Msg", "初始化面板");
+//        Log.i("Msg", "初始化面板");
         Period pre = data.get(0);
         for (int i = 0; i < data.size(); i++) {
             Period c = data.get(i);

@@ -1,6 +1,7 @@
 package com.yzy.mrbs.model;
 
 /**
+ * 时间段
  * Created by ZhiYuan on 2016/5/26.
  */
 public class Period {
