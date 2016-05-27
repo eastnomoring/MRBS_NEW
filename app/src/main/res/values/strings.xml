@@ -1,6 +1,7 @@
 <resources>
     <!-- 全局文字 -->
     <string name="app_name">会议室预订系统</string>
+    <string name="app_name_new">MRBS</string>
     <string name="app_version">v1.0</string>
     <!-- 界面文字 -->
     <string name="login_register_link">没有帐号？</string>
