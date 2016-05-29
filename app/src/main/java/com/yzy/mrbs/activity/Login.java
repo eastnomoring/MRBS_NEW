@@ -40,7 +40,7 @@ public class Login extends BaseUi {
     private CheckBox mCheckBox;
     private SharedPreferences settings;
     private String slogin_request ;    //点击登录后的JSON字符串类型返回值
-    private String uasrid ;            //提取的用户ID
+    private String userid ;            //提取的用户ID
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,8 +98,10 @@ public class Login extends BaseUi {
             //旧方法适用于Hush Framework框架服务端
 //            doTaskLogin();
             //新方法适用于Pi框架服务端
-
             if (loginPro()) {
+                if ( Integer.parseInt(userid) == 1){
+                    //启动管理员界面
+                }
                 // 启动UiMain Activity
                 forward(UiMain.class);
             } else {
@@ -215,8 +217,8 @@ public class Login extends BaseUi {
             jsonObj = query();
             // 代码号为200
             if (jsonObj.getInt("ret") == 200){
-                uasrid = jsonObj.getJSONObject("data").getString("userid");
-                BaseUser.setBaesInfo(uasrid,username_edit.getText().toString(),password_edit.getText().toString());
+                userid = jsonObj.getJSONObject("data").getString("userid");
+                BaseUser.setBaesInfo(userid,username_edit.getText().toString(),password_edit.getText().toString());
                 BaseUser.setLogin(true);
                 return true;
             }

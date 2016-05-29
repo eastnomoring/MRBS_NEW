@@ -16,6 +16,7 @@ import com.yzy.mrbs.phalapi.PhalapiHttpUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,6 +31,7 @@ import java.util.Map;
 public class BookSearch_RoomInfo extends BaseUiUser {
     String Monday[];
     String Sunday[];
+    String Today[];
 
     private String roomid;
     private String roomname;
@@ -66,6 +68,10 @@ public class BookSearch_RoomInfo extends BaseUiUser {
         snotes = getLists();
 
         //获取本地日期
+        Calendar cal_0 = Calendar.getInstance();
+        SimpleDateFormat df0 = new SimpleDateFormat("yyyy-MM-dd");
+//        Log.i("今天日期", df0.format(cal_0.getTime()));
+
         Calendar cal_1 = Calendar.getInstance();
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
         cal_1.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); //获取本周一的日期
@@ -77,7 +83,7 @@ public class BookSearch_RoomInfo extends BaseUiUser {
         cal_2.add(Calendar.WEEK_OF_YEAR, 1);
 //        Log.i("本周末日期", df2.format(cal_2.getTime()));
 
-
+        Today = df0.format(cal_0.getTime()).split("-");
         //从Note列表中筛选出日期在本周的预约
         Monday = df1.format(cal_1.getTime()).split("-");
 //        Log.i("本周一年", Monday[0]);
@@ -145,17 +151,41 @@ public class BookSearch_RoomInfo extends BaseUiUser {
             int minute_start = item.getMinute_start();
             int hour_end = item.getHour_end();
             int minute_end = item.getMinute_end();
+//            Log.i("今天年", Today[0]);
+//            Log.i("今天月", Today[1]);
+//            Log.i("今天日", Today[2]);
+//            Log.i("本周一年", Monday[0]);
 //            Log.i("本周一月", Monday[1]);
 //            Log.i("本周一日", Monday[2]);
+//            Log.i("本周日年", Sunday[0]);
 //            Log.i("本周日月", Sunday[1]);
 //            Log.i("本周日日", Sunday[2]);
-            if (year >= Integer.parseInt(Monday[0]) &&
-                    year <= Integer.parseInt(Sunday[0]) &&
-                    month >= Integer.parseInt(Monday[1]) &&
-                    month <= Integer.parseInt(Sunday[1]) &&
-                    day >= Integer.parseInt(Monday[2]) &&
-                    day <= Integer.parseInt(Sunday[2])
-                    ) {
+//            Log.i("此时间段年", year + "");
+//            Log.i("此时间段月", month + "");
+//            Log.i("此时间段日", day + "");
+            //设定时间的模板
+            String monday = Monday[0] + "-" + Monday[1] + "-" + Monday[2];
+            String today = year + "-" + month + "-" + day;       //这一天
+            String sunday = Sunday[0] + "-" + Sunday[1] + "-" + Sunday[2];
+            SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd");
+            Date date0 = null, date1 = null, date2 = null;
+            try {
+                date0 = sDate.parse(monday);
+                date1 = sDate.parse(today);
+                date2 = sDate.parse(sunday);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            long mondayDate = date0.getTime();
+            long todayDate = date1.getTime();
+            long sundayDate = date2.getTime();
+
+//            Log.i("周一日期mondayDate", mondayDate + "");
+//            Log.i("今天日期todayDate", todayDate + "");
+//            Log.i("周末日期sundayDate", sundayDate + "");
+
+
+            if (mondayDate <= todayDate && sundayDate >= todayDate) {  //只有预约时间段在本周才显示出来
                 Calendar cal = Calendar.getInstance();
 //                Log.i("设置年", "" + year);
 //                Log.i("设置月", "" + month);
