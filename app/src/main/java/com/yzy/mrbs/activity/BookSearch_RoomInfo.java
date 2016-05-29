@@ -23,7 +23,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * Created by ZhiYuan on 2016/5/26.
@@ -69,16 +71,20 @@ public class BookSearch_RoomInfo extends BaseUiUser {
 
         //获取本地日期
         Calendar cal_0 = Calendar.getInstance();
-        SimpleDateFormat df0 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df0 = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
 //        Log.i("今天日期", df0.format(cal_0.getTime()));
 
         Calendar cal_1 = Calendar.getInstance();
-        SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
-        cal_1.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); //获取本周一的日期
+        SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+        cal_1.add(Calendar.DAY_OF_MONTH, -1); //解决周日会出现 并到下一周的情况
+        cal_1.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 //        Log.i("本周一日期", df1.format(cal_1.getTime()));
 
+
+
         Calendar cal_2 = Calendar.getInstance();
-        SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+        cal_2.add(Calendar.DAY_OF_MONTH, -1); //解决周日会出现 并到下一周的情况
         cal_2.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         cal_2.add(Calendar.WEEK_OF_YEAR, 1);
 //        Log.i("本周末日期", df2.format(cal_2.getTime()));
@@ -168,6 +174,7 @@ public class BookSearch_RoomInfo extends BaseUiUser {
             String today = year + "-" + month + "-" + day;       //这一天
             String sunday = Sunday[0] + "-" + Sunday[1] + "-" + Sunday[2];
             SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd");
+            sDate.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));//北京时间
             Date date0 = null, date1 = null, date2 = null;
             try {
                 date0 = sDate.parse(monday);
