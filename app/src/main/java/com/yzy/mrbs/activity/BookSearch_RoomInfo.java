@@ -157,6 +157,7 @@ public class BookSearch_RoomInfo extends BaseUiUser {
             int minute_start = item.getMinute_start();
             int hour_end = item.getHour_end();
             int minute_end = item.getMinute_end();
+            int status = item.getStatus();
 //            Log.i("今天年", Today[0]);
 //            Log.i("今天月", Today[1]);
 //            Log.i("今天日", Today[2]);
@@ -191,8 +192,8 @@ public class BookSearch_RoomInfo extends BaseUiUser {
 //            Log.i("今天日期todayDate", todayDate + "");
 //            Log.i("周末日期sundayDate", sundayDate + "");
 
-
-            if (mondayDate <= todayDate && sundayDate >= todayDate) {  //只有预约时间段在本周才显示出来
+//            Log.i("status状态为：", status + "");
+            if (mondayDate <= todayDate && sundayDate >= todayDate && status == 1 ) {  //只有预约时间段在本周，并且预约状态为1（管理员确认）才显示出来
                 Calendar cal = Calendar.getInstance();
 //                Log.i("设置年", "" + year);
 //                Log.i("设置月", "" + month);

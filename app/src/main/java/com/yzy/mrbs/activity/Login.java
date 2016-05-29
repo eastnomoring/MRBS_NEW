@@ -45,9 +45,11 @@ public class Login extends BaseUi {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // check if login
-        if (BaseUser.isLogin()) {
-            this.forward(UiMain.class);
-        }
+
+//        if (BaseUser.isLogin()) {
+//            this.forward(UiMain.class);
+//        }
+
         // set view after check login
         setContentView(R.layout.mrbs_activity_login);
         //控件对象初始化
@@ -101,9 +103,12 @@ public class Login extends BaseUi {
             if (loginPro()) {
                 if ( Integer.parseInt(userid) == 1){
                     //启动管理员界面
+                    forward(Admin.class);
+                }else {
+                    // 启动UiMain Activity
+                    forward(UiMain.class);
                 }
-                // 启动UiMain Activity
-                forward(UiMain.class);
+
             } else {
                 toast("用户名密码错误");
             }

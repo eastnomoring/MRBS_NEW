@@ -25,6 +25,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.Admin"> </activity>
 
         <activity android:name=".activity.UiMain"> </activity>
 
